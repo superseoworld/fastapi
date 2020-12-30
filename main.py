@@ -11,7 +11,7 @@ def home():
     return {"message":"Hello TutLinks.com"}
 
 @app.get("/get_content")
-def get_content(url):
+def get_content():
     extractor = extractors.LargestContentExtractor()
     doc = extractor.get_content_from_url("https://www.whitebox.eu")
 
