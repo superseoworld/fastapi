@@ -8,7 +8,7 @@ app = FastAPI()
 
 @app.get("/")
 def home():
-    return {"message": "Hello TutLinks.com"}
+    return {"message": "Hello World!"}
 
 
 @app.get("/get_content/")
