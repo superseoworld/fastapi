@@ -12,7 +12,7 @@ def home():
 
 @app.get("/get_content")
 def get_content(url):
-    extractor = extractors.LargestContentExtractor("https://www.whitebox.eu")
-    doc = extractor.get_content_from_url(url)
+    extractor = extractors.LargestContentExtractor()
+    doc = extractor.get_content_from_url("https://www.whitebox.eu")
 
     return {"content": doc}
