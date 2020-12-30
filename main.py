@@ -3,16 +3,17 @@ from boilerpy3 import extractors
 
 app = FastAPI()
 
-#domain where this api is hosted for example : localhost:5000/docs to see swagger documentation automagically generated.
+# domain where this api is hosted for example : localhost:5000/docs to see swagger documentation automagically generated.
 
 
 @app.get("/")
 def home():
-    return {"message":"Hello TutLinks.com"}
+    return {"message": "Hello TutLinks.com"}
 
-@app.get("/get_content")
-def get_content():
+
+@app.get("/get_content/")
+def get_content(url: str):
     extractor = extractors.LargestContentExtractor()
     doc = extractor.get_content_from_url(url)
 
-    return {"content":doc}
+    return {"content": doc}
