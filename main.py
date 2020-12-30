@@ -13,7 +13,7 @@ def home():
 
 @app.get("/get_content/")
 def get_content(url: str):
-    extractor = extractors.LargestContentExtractor()
+    extractor = extractors.KeepEverythingExtractor()
     doc = extractor.get_content_from_url(url)
 
     return {"content": doc}
