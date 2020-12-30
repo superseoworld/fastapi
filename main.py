@@ -14,6 +14,10 @@ def home():
 @app.get("/get_content/")
 def get_content(url: str):
     extractor = extractors.KeepEverythingExtractor()
-    doc = extractor.get_content_from_url(url)
+    try:
+        doc = extractor.get_content_from_url(url)
+    except:
+        print("An exception occurred")
+        pass
 
     return {"content": doc}
