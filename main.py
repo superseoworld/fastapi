@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from boilerpy3 import extractors
+import requests
 
 app = FastAPI()
 
@@ -13,6 +14,7 @@ def home():
 
 @app.get("/get_content/")
 def get_content(url: str):
+    url = uri_exists_get(url)
     extractor = extractors.KeepEverythingExtractor()
     try:
         doc = extractor.get_content_from_url(url)
@@ -21,3 +23,15 @@ def get_content(url: str):
         pass
 
     return {"content": doc}
+
+
+def uri_exists_get(uri: str) -> bool:
+    try:
+        response = requests.get(uri)
+        try:
+            response.raise_for_status()
+            return True
+        except requests.exceptions.HTTPError:
+            return False
+    except requests.exceptions.ConnectionError:
+        return False
