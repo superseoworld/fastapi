@@ -30,7 +30,7 @@ def uri_exists_get(uri: str) -> bool:
         response = requests.get(uri)
         try:
             response.raise_for_status()
-            return True
+            return uri
         except requests.exceptions.HTTPError:
             return False
     except requests.exceptions.ConnectionError:
