@@ -29,6 +29,7 @@ def uri_exists_get(uri: str) -> bool:
     try:
         response = requests.get(uri)
         try:
+            print(response)
             response.raise_for_status()
             return uri
         except requests.exceptions.HTTPError:
