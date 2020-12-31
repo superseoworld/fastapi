@@ -32,6 +32,6 @@ def uri_exists_get(uri: str) -> bool:
             response.raise_for_status()
             return uri
         except requests.exceptions.HTTPError:
-            return False
+            return print("Moo")
     except requests.exceptions.ConnectionError:
         return False
