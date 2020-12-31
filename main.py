@@ -18,18 +18,18 @@ def get_content(url: str):
     extractor = extractors.KeepEverythingExtractor()
     try:
         doc = extractor.get_content_from_url(url)
+        return {"content": doc}
     except:
         print("An exception occurred")
         pass
 
-    return {"content": doc}
+
 
 
 def uri_exists_get(uri: str) -> bool:
     try:
         response = requests.get(uri)
         try:
-            print(response)
             response.raise_for_status()
             return uri
         except requests.exceptions.HTTPError:
