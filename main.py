@@ -4,19 +4,16 @@ import requests
 
 app = FastAPI()
 
-
 # domain where this api is hosted for example : localhost:5000/docs to see swagger documentation automagically generated.
-
 
 @app.get("/")
 def home():
     return {"message": "Hello World!"}
 
-
 @app.get("/get_content/")
 def get_content(url: str):
     url_valid = uri_exists_stream(url)
-    if url_valid:
+    if url_valid == True:
         extractor = extractors.KeepEverythingExtractor()
         try:
             doc = extractor.get_content_from_url(url)
@@ -25,7 +22,6 @@ def get_content(url: str):
             pass
     else:
         return {'msg': url_valid}
-
 
 def uri_exists_stream(uri: str) -> bool:
     try:
