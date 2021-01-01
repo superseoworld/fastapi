@@ -15,13 +15,16 @@ def home():
 @app.get("/get_content/")
 def get_content(url: str):
     url_valid = uri_exists_stream(url)
-    extractor = extractors.KeepEverythingExtractor()
-    try:
-        doc = extractor.get_content_from_url(url)
-        return {"content": doc}
-    except:
-        print("An exception occurred")
-        pass
+    if url_valid == True:
+        extractor = extractors.KeepEverythingExtractor()
+        try:
+            doc = extractor.get_content_from_url(url)
+            return {"content": doc}
+        except:
+            print("An exception occurred")
+            pass
+    else:
+        return {'msg': url_valid}
 
 
 def uri_exists_stream(uri: str) -> bool:
@@ -31,6 +34,6 @@ def uri_exists_stream(uri: str) -> bool:
                 response.raise_for_status()
                 return True
             except requests.exceptions.HTTPError:
-                return False
+                return 'error'
     except requests.exceptions.ConnectionError:
-        return False
+        return 'connection timeout'
