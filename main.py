@@ -34,6 +34,6 @@ def uri_exists_stream(uri: str) -> bool:
                 response.raise_for_status()
                 return True
             except requests.exceptions.HTTPError as err:
-                return err
-    except requests.exceptions.ConnectionError as conn_err:
-        return conn_err
+                return {'err': err, 'status': err.response.status_code}
+    except requests.exceptions.ConnectionError as err:
+        return {'err': err, 'status': err.response.status_code}
