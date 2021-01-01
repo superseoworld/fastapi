@@ -49,5 +49,5 @@ def uri_exists_stream(uri: str) -> bool:
 
 
 def normalize_text(doc):
-    doc = clean(doc, no_line_breaks=True)
-    return(doc)
+    doc = clean(doc, lower=False, no_line_breaks=True)
+    return doc
