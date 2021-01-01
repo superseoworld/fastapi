@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from boilerpy3 import extractors
 from cleantext import clean
 import requests
-import os
+import pyping
 
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36'
@@ -55,8 +55,8 @@ def normalize_text(doc):
     return doc
 
 def ping_domain(url):
-    response = os.system("ping -c 1 " + url)
-    if response == 0:
+    response = pyping.ping(url)
+    if response.ret_code == 0:
         return True
     else:
         return {'msg': {'status_code': '404'}}
