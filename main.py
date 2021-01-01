@@ -20,6 +20,7 @@ def home():
 @app.get("/get_content/")
 def get_content(url: str):
     url_valid = uri_exists_stream(url)
+    print(url_valid)
     if url_valid == True:
         extractor = extractors.KeepEverythingExtractor()
         try:
