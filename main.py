@@ -14,7 +14,7 @@ def home():
 
 @app.get("/get_content/")
 def get_content(url: str):
-    url = uri_exists_get(url)
+    url_valid = uri_exists_get(url)
     extractor = extractors.KeepEverythingExtractor()
     try:
         doc = extractor.get_content_from_url(url)
@@ -24,15 +24,13 @@ def get_content(url: str):
         pass
 
 
-
-
-def uri_exists_get(uri: str) -> bool:
+def uri_exists_stream(uri: str) -> bool:
     try:
-        response = requests.get(uri)
-        try:
-            response.raise_for_status()
-            return uri
-        except requests.exceptions.HTTPError:
-            return print("Moo")
+        with requests.get(uri, stream=True) as response:
+            try:
+                response.raise_for_status()
+                return True
+            except requests.exceptions.HTTPError:
+                return False
     except requests.exceptions.ConnectionError:
         return False
