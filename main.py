@@ -31,7 +31,7 @@ def get_content(url: str):
         except:
             pass
     else:
-        return {'msg': url_valid}
+        return {'msg': url_valid, 'msg_ping': url_exists}
 
 
 def uri_exists_stream(uri: str) -> bool:
@@ -61,4 +61,4 @@ def ping_domain(url):
     if response.ret_code == 0:
         return True
     else:
-        return {'msg': {'status_code': '404'}}
+        return {'status_code': '404'}
