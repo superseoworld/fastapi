@@ -59,4 +59,4 @@ def ping_domain(url):
     if response == 0:
         return True
     else:
-        return {'msg': 'status_code': '404'}}
+        return {'msg': {'status_code': '404'}}
