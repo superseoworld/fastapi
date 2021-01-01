@@ -17,4 +17,3 @@ wrapt==1.11.2
 boilerpy3~=1.0.3
 requests~=2.24.0
 clean-text==0.3.0
-cleantext~=1.1.3
