@@ -3,6 +3,10 @@ from boilerpy3 import extractors
 import requests
 
 app = FastAPI()
+HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36'
+}
+
 
 # domain where this api is hosted for example : localhost:5000/docs to see swagger documentation automagically generated.
 
@@ -10,12 +14,10 @@ app = FastAPI()
 def home():
     return {"message": "Hello World!"}
 
+
 @app.get("/get_content/")
 def get_content(url: str):
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36',
-    }
-    url_valid = uri_exists_stream(url, headers)
+    url_valid = uri_exists_stream(url)
     if url_valid == True:
         extractor = extractors.KeepEverythingExtractor()
         try:
@@ -26,9 +28,10 @@ def get_content(url: str):
     else:
         return {'msg': url_valid}
 
-def uri_exists_stream(uri: str, headers) -> bool:
+
+def uri_exists_stream(uri: str) -> bool:
     try:
-        with requests.get(uri, stream=True, headers=headers) as response:
+        with requests.get(uri, stream=True, headers=HEADERS) as response:
             try:
                 response.raise_for_status()
                 return True
