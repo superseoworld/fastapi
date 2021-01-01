@@ -20,9 +20,8 @@ def home():
 
 @app.get("/get_content/")
 def get_content(url: str):
-    url_exists = ping_domain(url)
     url_valid = uri_exists_stream(url)
-    if url_exists == True and url_valid == True:
+    if url_valid == True:
         extractor = extractors.KeepEverythingExtractor()
         try:
             doc = extractor.get_content_from_url(url)
@@ -31,7 +30,7 @@ def get_content(url: str):
         except:
             pass
     else:
-        return {'msg': url_valid, 'msg_ping': url_exists}
+        return {'msg': url_valid}
 
 
 def uri_exists_stream(uri: str) -> bool:
@@ -53,12 +52,3 @@ def uri_exists_stream(uri: str) -> bool:
 def normalize_text(doc):
     doc = clean(doc, lower=False, no_line_breaks=True)
     return doc
-
-
-def ping_domain(url):
-    response = pyping.ping(url)
-
-    if response.ret_code == 0:
-        return True
-    else:
-        return {'status_code': '404'}
