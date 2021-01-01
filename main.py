@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from boilerpy3 import extractors
 from cleantext import clean
 import requests
+import os
 
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36'
@@ -19,9 +20,9 @@ def home():
 
 @app.get("/get_content/")
 def get_content(url: str):
+    url_exists = ping_domain(url)
     url_valid = uri_exists_stream(url)
-    print(url_valid)
-    if url_valid == True:
+    if url_exists == True && url_valid == True:
         extractor = extractors.KeepEverythingExtractor()
         try:
             doc = extractor.get_content_from_url(url)
@@ -52,3 +53,10 @@ def uri_exists_stream(uri: str) -> bool:
 def normalize_text(doc):
     doc = clean(doc, lower=False, no_line_breaks=True)
     return doc
+
+def ping_domain(url):
+    response = os.system("ping -c 1 " + url)
+    if response == 0:
+        return True
+    else:
+        return {'msg': 'status_code': '404'}}
