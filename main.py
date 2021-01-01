@@ -1,11 +1,13 @@
 from fastapi import FastAPI
 from boilerpy3 import extractors
+from cleantext import clean
 import requests
 
-app = FastAPI()
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36'
 }
+
+app = FastAPI()
 
 
 # domain where this api is hosted for example : localhost:5000/docs to see swagger documentation automagically generated.
@@ -22,6 +24,7 @@ def get_content(url: str):
         extractor = extractors.KeepEverythingExtractor()
         try:
             doc = extractor.get_content_from_url(url)
+            doc = normalize_text(doc)
             return {"content": doc}
         except:
             pass
@@ -43,3 +46,8 @@ def uri_exists_stream(uri: str) -> bool:
         return {'err': err,
                 'status_code': err.response.status_code,
                 'reason': err.response.reason}
+
+
+def normalize_text(doc):
+    doc = clean(doc, no_line_breaks=True)
+    return(doc)
