@@ -12,7 +12,10 @@ def home():
 
 @app.get("/get_content/")
 def get_content(url: str):
-    url_valid = uri_exists_stream(url)
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36',
+    }
+    url_valid = uri_exists_stream(url, headers)
     if url_valid == True:
         extractor = extractors.KeepEverythingExtractor()
         try:
@@ -23,9 +26,9 @@ def get_content(url: str):
     else:
         return {'msg': url_valid}
 
-def uri_exists_stream(uri: str) -> bool:
+def uri_exists_stream(uri: str, headers) -> bool:
     try:
-        with requests.get(uri, stream=True) as response:
+        with requests.get(uri, stream=True, headers=headers) as response:
             try:
                 response.raise_for_status()
                 return True
