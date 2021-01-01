@@ -33,7 +33,7 @@ def uri_exists_stream(uri: str) -> bool:
             try:
                 response.raise_for_status()
                 return True
-            except requests.exceptions.HTTPError:
-                return 'error'
-    except requests.exceptions.ConnectionError:
-        return 'connection timeout'
+            except requests.exceptions.HTTPError as err:
+                return err
+    except requests.exceptions.ConnectionError as conn_err:
+        return conn_err
