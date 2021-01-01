@@ -32,7 +32,7 @@ def get_content(url: str):
         return {'msg': url_valid}
 
 
-def uri_exists_stream(uri: str) -> bool:
+def uri_exists_stream(uri: str):
     try:
         with requests.get(uri, stream=True, headers=HEADERS) as response:
             try:
