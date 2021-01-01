@@ -14,7 +14,7 @@ def home():
 
 @app.get("/get_content/")
 def get_content(url: str):
-    url_valid = uri_exists_get(url)
+    url_valid = uri_exists_stream(url)
     extractor = extractors.KeepEverythingExtractor()
     try:
         doc = extractor.get_content_from_url(url)
