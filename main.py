@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from boilerpy3 import extractors
 from cleantext import clean
+from django.core.validators import URLValidator
+from django.core.exceptions import ValidationError
 import requests
 
 HEADERS = {
@@ -51,3 +53,12 @@ def uri_exists_stream(uri: str):
 def normalize_text(doc):
     doc = clean(doc, lower=False, no_line_breaks=True)
     return doc
+
+
+@app.get("/validate_url/")
+def validate_url(url: str):
+    val = URLValidator(verify_exists=False)
+    try:
+        val(url)
+    except ValidationError, e:
+        return e
