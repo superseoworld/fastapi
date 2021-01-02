@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from boilerpy3 import extractors
 from cleantext import clean
-from validator_collection import validators, checkers
+from validator_collection import validators, errors
 import requests
 
 HEADERS = {
@@ -58,6 +58,6 @@ def normalize_text(doc):
 def validate_url(url: str):
     try:
         value = validators.url(url)
-        return value
-    except ValueError as err:
+        return True
+    except errors.InvalidURLError as err:
         return {'msg': err}
