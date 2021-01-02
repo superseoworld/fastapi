@@ -54,8 +54,8 @@ def normalize_text(doc):
     doc = clean(doc, lower=False, no_line_breaks=True)
     return doc
 
-
-def domain_is_up(url):
+@app.get('/domain_is_up')
+def domain_is_up(url: str):
     req = Request(url)
     try:
         response = urlopen(req)
