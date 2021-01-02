@@ -1,8 +1,7 @@
 from fastapi import FastAPI
 from boilerpy3 import extractors
 from cleantext import clean
-from django.core.validators import URLValidator
-from django.core.exceptions import ValidationError
+from validator_collection import validators, checkers
 import requests
 
 HEADERS = {
@@ -57,8 +56,8 @@ def normalize_text(doc):
 
 @app.get("/validate_url/")
 def validate_url(url: str):
-    val = URLValidator()
     try:
-        val(url)
-    except ValidationError as e:
-        return e
+        value = validators.url(url)
+        return value
+    except ValueError as err:
+        return {'msg': err}
