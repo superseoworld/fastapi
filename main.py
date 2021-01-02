@@ -60,5 +60,5 @@ def validate_url(url: str):
     val = URLValidator(verify_exists=False)
     try:
         val(url)
-    except ValidationError, e:
+    except ValidationError as e:
         return e
