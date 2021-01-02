@@ -56,7 +56,6 @@ def normalize_text(doc):
 
 @app.get("/domain_is_up/")
 def domain_is_up(url: str):
-    return url
     req = Request(url)
     try:
         response = urlopen(req)
