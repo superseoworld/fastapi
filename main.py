@@ -57,7 +57,7 @@ def normalize_text(doc):
 
 @app.get("/validate_url/")
 def validate_url(url: str):
-    val = URLValidator(verify_exists=False)
+    val = URLValidator()
     try:
         val(url)
     except ValidationError as e:
