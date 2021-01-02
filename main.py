@@ -34,7 +34,7 @@ def get_content(url: str):
         else:
             return {'msg': url_valid}
     else:
-        return {'msg': 'status_code': 'url malformed'}}
+        return {'msg': {'status_code': 'url malformed'}}
 
 
 def uri_exists_stream(uri: str):
