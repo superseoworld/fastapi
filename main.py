@@ -20,17 +20,21 @@ def home():
 
 @app.get("/get_content/")
 def get_content(url: str):
-    url_valid = uri_exists_stream(url)
-    if url_valid == True:
-        extractor = extractors.KeepEverythingExtractor()
-        try:
-            doc = extractor.get_content_from_url(url)
-            doc = normalize_text(doc)
-            return {"content": doc}
-        except:
-            pass
+    url_spelling = validate_url(url)
+    if url_spelling == True:
+        url_valid = uri_exists_stream(url)
+        if url_valid == True:
+            extractor = extractors.KeepEverythingExtractor()
+            try:
+                doc = extractor.get_content_from_url(url)
+                doc = normalize_text(doc)
+                return {"content": doc}
+            except:
+                pass
+        else:
+            return {'msg': url_valid}
     else:
-        return {'msg': url_valid}
+        return {'msg': 'status_code': 'url malformed'}}
 
 
 def uri_exists_stream(uri: str):
@@ -60,4 +64,4 @@ def validate_url(url: str):
         value = validators.url(url)
         return True
     except errors.InvalidURLError as err:
-        return {'msg': err}
+        return False
