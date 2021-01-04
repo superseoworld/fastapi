@@ -70,10 +70,10 @@ def validate_url(url: str):
 
 @app("/show_entities/")
 def render_entities(url: str):
-    validate_url = validate_url(url)
-    if validate_url == True:
-        validate_url = uri_exists_stream(url)
-        if validate_url == True:
+    validated_url = validate_url(url)
+    if validated_url == True:
+        validated_url = uri_exists_stream(url)
+        if validated_url == True:
             nlp = spacy.load("de_core_news_sm")
             extractor = extractors.LargestContentExtractor()
             try:
@@ -83,7 +83,7 @@ def render_entities(url: str):
             except:
                 pass
         else:
-            return {'msg': url_valid}
+            return {'msg': validated_url}
     else:
         return {'msg': {'status_code': 'malformed url'}}
 
