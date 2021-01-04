@@ -79,7 +79,7 @@ def render_entities(url: str):
             try:
                 doc = extractor.get_content_from_url(url)
                 doc = nlp(doc)
-                entities = [ent in doc.ents]
+                entities = list(doc.ents)
                 return entities
             except:
                 pass
