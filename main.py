@@ -80,7 +80,7 @@ def get_entities(url: str):
                 doc = extractor.get_content_from_url(url)
                 doc = nlp(doc)
                 entities = [str(ent) for ent in doc.ents]
-                return json.dumps(entities)
+                return None
             except:
                 pass
         else:
