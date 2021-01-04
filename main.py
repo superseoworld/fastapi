@@ -3,6 +3,8 @@ from boilerpy3 import extractors
 from cleantext import clean
 from validator_collection import validators, errors
 import requests
+import spacy
+from spacy import displacy
 
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36'
@@ -65,3 +67,23 @@ def validate_url(url: str):
         return True
     except errors.InvalidURLError as err:
         return False
+
+@app("/show_entities/")
+def render_entities(url: str):
+    validate_url = validate_url(url)
+    if validate_url == True:
+        validate_url = uri_exists_stream(url)
+        if validate_url == True:
+            nlp = spacy.load("de_core_news_sm")
+            extractor = extractors.LargestContentExtractor()
+            try:
+                doc = extractor.get_content_from_url(url)
+                doc = nlp(doc)
+                html = displacy.render(doc, style="ent", page=True)
+            except:
+                pass
+        else:
+            return {'msg': url_valid}
+    else:
+        return {'msg': {'status_code': 'malformed url'}}
+
