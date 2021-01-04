@@ -68,6 +68,7 @@ def validate_url(url: str):
     except errors.InvalidURLError as err:
         return False
 
+
 @app.get("/get_entities/")
 def get_entities(url: str):
     validated_url = validate_url(url)
@@ -78,8 +79,8 @@ def get_entities(url: str):
             extractor = extractors.LargestContentExtractor()
             try:
                 doc = extractor.get_content_from_url(url)
-                doc = nlp(doc)
-                entities = [str(ent) for ent in doc.ents]
+                # doc = nlp(doc)
+                # entities = [str(ent) for ent in doc.ents]
                 return None
             except:
                 pass
