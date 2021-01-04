@@ -68,8 +68,8 @@ def validate_url(url: str):
     except errors.InvalidURLError as err:
         return False
 
-@app.get("/render_entities/")
-def render_entities(url: str):
+@app.get("/get_entities/")
+def get_entities(url: str):
     validated_url = validate_url(url)
     if validated_url == True:
         validated_url = uri_exists_stream(url)
