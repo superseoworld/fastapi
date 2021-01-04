@@ -80,6 +80,7 @@ def render_entities(url: str):
                 doc = extractor.get_content_from_url(url)
                 doc = nlp(doc)
                 html = displacy.render(doc, style="ent", page=True)
+                return html
             except:
                 pass
         else:
