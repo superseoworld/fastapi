@@ -70,6 +70,7 @@ def validate_url(url: str):
 
 @app.get("/get_entities/")
 def get_entities(url: str):
+    nlp = spacy.load("en_core_web_sm")
     doc = get_content(url)
 
 
