@@ -4,7 +4,7 @@ from cleantext import clean
 from validator_collection import validators, errors
 import requests
 import spacy
-from spacy import displacy
+import json
 
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36'
@@ -80,7 +80,7 @@ def render_entities(url: str):
                 doc = extractor.get_content_from_url(url)
                 doc = nlp(doc)
                 entities = list(doc.ents)
-                return entities
+                return json.dumps(entities)
             except:
                 pass
         else:
