@@ -75,7 +75,7 @@ def get_entities(url: str):
     if validated_url == True:
         validated_url = uri_exists_stream(url)
         if validated_url == True:
-            nlp = spacy.load("de_core_news_sm")
+            # nlp = spacy.load("de_core_news_sm")
             extractor = extractors.LargestContentExtractor()
             try:
                 doc = extractor.get_content_from_url(url)
