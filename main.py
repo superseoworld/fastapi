@@ -68,7 +68,7 @@ def validate_url(url: str):
     except errors.InvalidURLError as err:
         return False
 
-@app.get("/show_entities/")
+@app.get("/render_entities/")
 def render_entities(url: str):
     validated_url = validate_url(url)
     if validated_url == True:
