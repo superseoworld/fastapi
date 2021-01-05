@@ -73,7 +73,7 @@ def get_entities(url: str):
     nlp = en_core_web_sm.load()
     doc = get_content(url)
     doc = nlp(doc.get('content'))
-    doc = [str(ent) for ent in docs.ents]
+    doc = [str(ent) for ent in doc.ents]
     doc = json.dumps(doc)
     return doc
 
