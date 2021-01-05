@@ -5,6 +5,7 @@ from validator_collection import validators, errors
 import requests
 import en_core_web_sm
 import json
+import pandas as pd
 
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36'
@@ -74,6 +75,7 @@ def get_entities(url: str):
     nlp = en_core_web_sm.load()
     doc = nlp(doc.get('content'))
     doc = {'ents': [str(ent) for ent in doc.ents]}
+    doc = pd.DataFrame(doc)
     doc = doc.to_json()
     return doc
 
