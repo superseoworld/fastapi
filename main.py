@@ -3,7 +3,7 @@ from boilerpy3 import extractors
 from cleantext import clean
 from validator_collection import validators, errors
 import requests
-import spacy
+import en_core_web_sm
 
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36'
@@ -70,7 +70,7 @@ def validate_url(url: str):
 
 @app.get("/get_entities/")
 def get_entities(url: str):
-    nlp = spacy.load("en_core_web_sm")
+    nlp = en_core_web_sm.load()
     doc = get_content(url)
     return None
 
