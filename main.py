@@ -73,6 +73,7 @@ def validate_url(url: str):
 @app.get("/get_entities/")
 def get_entities(url: str):
     nlp = en_core_web_sm.load()
+    doc = get_content(url)
     doc = nlp(doc.get('content'))
     doc = {'ents': [str(ent) for ent in doc.ents]}
     doc = pd.DataFrame(doc)
