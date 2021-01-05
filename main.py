@@ -77,7 +77,7 @@ def get_entities(url: str):
     doc = nlp(doc.get('content'))
     doc = {'ents': [str(ent) for ent in doc.ents]}
     doc = pd.DataFrame(doc)
-    doc = doc.to_json()
+    # doc = doc.to_json()
     return doc
 
 
