@@ -75,7 +75,7 @@ def get_entities(url: str):
     doc = get_content(url)
     doc = nlp(doc.get('content'))
     doc = [str(ent) for ent in doc.ents]
-    doc = json.dumps(doc)
+    # doc = json.dumps(doc)
     return doc
 
 
