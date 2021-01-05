@@ -72,10 +72,9 @@ def validate_url(url: str):
 @app.get("/get_entities/")
 def get_entities(url: str):
     nlp = en_core_web_sm.load()
-    # extractor = extractors.ArticleExtractor()
     doc = nlp(doc.get('content'))
-    doc = [str(ent) for ent in doc.ents]
-    doc = {'entities': doc[0]}
+    doc = {'ents': [str(ent) for ent in doc.ents]}
+    doc = doc.to_json()
     return doc
 
 
