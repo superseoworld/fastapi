@@ -72,7 +72,7 @@ def validate_url(url: str):
 
 @app.get("/get_entities/")
 def get_entities(url: str):
-    nlp = en_core_web_sm.load()
+    # nlp = en_core_web_sm.load()
     content = get_content(url)
     # doc = nlp(content.get('content'))
 
