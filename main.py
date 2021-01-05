@@ -72,6 +72,9 @@ def validate_url(url: str):
 def get_entities(url: str):
     nlp = en_core_web_sm.load()
     doc = get_content(url)
-    return None
+    doc = nlp(doc)
+    doc = [str(ent) for ent in docs.ents]
+    doc = json.dumps(doc)
+    return doc
 
 
