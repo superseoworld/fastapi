@@ -15,7 +15,6 @@ uvicorn==0.11.2
 websockets==8.1
 wrapt==1.11.2
 boilerpy3~=1.0.3
-requests~=2.24.0
 clean-text==0.3.0
 validator-collection==1.5.0
 spacy>=2.0.0,<3.0.0
